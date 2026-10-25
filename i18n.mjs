@@ -1,5 +1,6 @@
 // Keep the maze and timer intact while translating text, labels, and live announcements.
 export const messages = {
+'Sound on':'音效开启','Sound off':'音效关闭',
 'bunny':'萌兔','compass':'指南针',
 'A LITTLE TWIST ON FINDING YOUR WAY':'转个方向，找到出路',
 'Bunny Compass · A little twist on finding your way':'萌兔指南针 · 旋转迷宫大冒险',

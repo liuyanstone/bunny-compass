@@ -10,3 +10,10 @@ Use arrow keys, WASD, or the onscreen controls to guide Clover to the carrot exi
 Three difficulties, each with 40 seeded mazes across five shapes. Every maze is generated as a spanning tree and validated for reachability.
 
 For development, serve this folder using `python3 -m http.server 8767`. Run `node check.mjs` to verify all 120 maze solutions.
+
+## Sound and readability
+Gentle step sounds and a short success melody are synthesized locally with Web Audio. Use the Sound on / Sound off button; the setting is saved in this browser. Wall collisions have a quiet low bump. This maze game has no losing state. Audio begins after a player interaction.
+
+Instructions use 18px text, controls use 16–18px text or larger, secondary labels use 14px or larger, and buttons have larger touch targets. English and Chinese layouts are supported.
+
+Run `node check-audio.mjs` to verify cue scheduling, mute behavior, saved preferences, and distinct outcome melodies.
