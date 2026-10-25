@@ -1,19 +1,36 @@
 # Bunny Compass / 萌兔指南针
-A rotating rabbit maze game with 120 solvable mazes, English and Simplified Chinese.
+Four rotating rabbit mazes each day, scored for complexity and speed. English and Simplified Chinese. No sign-in required.
 
-Play at https://liuyanstone.github.io/bunny-compass/ — no account or sign-in required.
+Play: https://liuyanstone.github.io/bunny-compass/
 
-Select English / 中文 in the header. Your language preference and maze completion are saved in your browser.
+## Daily challenge
+Each local calendar day has four fixed, solvable mazes in order: one easy, one medium, and two hard. Their complexity scores increase across the four. Date-based generation makes the daily set stable when reopening the game and produces a new set for the next day.
 
-Use arrow keys, WASD, or the onscreen controls to guide Clover to the carrot exit. The maze and bunny rotate by 90 degrees at random intervals. The onscreen arrow pad stays fixed in a normal keyboard layout. Keys retain their original maze directions: Up follows the rotating coral compass arrow. For example, when that arrow points right, pressing Up moves Clover right on the screen.
+Use arrow keys, WASD, or the fixed onscreen arrow pad. The maze, rabbit, and coral compass arrow rotate by 90 degrees at random intervals. Up always follows the coral arrow; the buttons stay in physical keyboard layout.
 
-Three difficulties, each with 40 seeded mazes across five shapes. Every maze is generated as a spanning tree and validated for reachability.
+Each maze scores only once. Completing it unlocks the next one, and all four scores add to that day's total. After all four, the scorecard remains available until the next day's fresh challenge. Previous days' scores stay in local history.
 
-For development, serve this folder using `python3 -m http.server 8767`. Run `node check.mjs` to verify all 120 maze solutions.
+## Scoring
+- Complexity base = difficulty tier × 100 + shortest-path steps × 5 + junctions along that shortest path × 10.
+- Tiers are easy 1, medium 2, and hard 3.
+- Speed bonus = floor(complexity base × 60 / (60 + active completion seconds)).
+- Maze score = complexity base + speed bonus.
+- Daily total = the sum of that day's four maze scores.
 
-## Sound and readability
-Gentle step sounds and a short success melody are synthesized locally with Web Audio. Use the Sound on / Sound off button; the setting is saved in this browser. Wall collisions have a quiet low bump. This maze game has no losing state. Audio begins after a player interaction.
+More complex mazes earn a higher base. Faster completion earns a larger bonus; every finish retains the full base with no time limit. The chosen daily sequence has strictly increasing complexity bases. The in-game scorecard breaks down complexity, time, speed bonus, and total for each maze.
 
-Instructions use 18px text, controls use 16–18px text or larger, secondary labels use 14px or larger, and buttons have larger touch targets. English and Chinese layouts are supported.
+Pauses do not count toward active completion time. Restarting preserves time already spent. Position, elapsed time, moves, turns, and board orientation are checkpointed during play. Reloading resumes unfinished play paused; it does not reset the speed timer. Completed scores are immutable and cannot be awarded twice. The local calendar day is checked during play and on returning to the tab.
 
-Run `node check-audio.mjs` to verify cue scheduling, mute behavior, saved preferences, and distinct outcome melodies.
+## Sound, language, and readability
+Gentle step sounds, quiet wall bumps, and a success melody use local Web Audio. Sound settings and language choice are remembered. Larger text, higher contrast, and larger controls support comfortable reading in English and Chinese.
+
+Daily scores, history, and checkpoints are stored on this browser/device. There are no accounts or cross-device syncing.
+
+## Development
+Buildless HTML, CSS, SVG, and ES modules. Serve with `python3 -m http.server 8775`.
+
+- `node check-daily.mjs`: 360 daily mazes across 90 dates; solvability; progressive complexity; speed scoring; sums; exactly four scores; duplicate prevention; checkpoint restore; fractional timing consistency; local-day rollover; historical totals.
+- `node check.mjs`: the original maze generator's reachability and movement checks.
+- `node check-audio.mjs`: audio activation, gentle envelopes, mute, persistence, and distinct outcome cues.
+
+Browser checks cover all four completions, exact scorecard summation, saved completion, restart/reload timing, and Chinese translation. Versioned module and stylesheet URLs keep updates coherent for returning browsers.

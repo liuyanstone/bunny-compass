@@ -54,12 +54,25 @@ export const messages = {
 'Guide Clover to the carrot gate. The coral arrow marks maze up.':'带四叶草走到胡萝卜出口。珊瑚色箭头标记迷宫的上方。',
 'Game paused.':'游戏已暂停。','The next three steps are highlighted in coral.':'接下来的三步已用珊瑚色标出。'
 };
+Object.assign(messages,{
+'Today’s four mazes':'今日四个迷宫','Today’s progress':'今日进度','TODAY’S CHALLENGE':'今日挑战','daily points':'今日得分','Today’s scorecard':'今日计分卡','Four mazes. One daily total.':'四个迷宫，累计每日总分。','Maze':'迷宫','Difficulty':'难度','Time':'用时','Complexity':'复杂度分','Speed bonus':'速度奖励','Score':'得分','Daily total':'每日总分','Easy':'简单','Medium':'中等','Hard':'困难','Current':'当前','Locked':'待解锁','DAILY CHALLENGE COMPLETE':'今日挑战完成','All four mazes complete!':'今日四个迷宫全部完成！','All four mazes complete. Come back tomorrow for a fresh challenge!':'四个迷宫全部完成，明天再来迎接全新挑战！','How scoring works':'计分规则','Complexity points = 100 × difficulty tier + 5 × shortest-path steps + 10 × junctions on that path.':'复杂度分 = 难度等级 × 100 + 最短路线步数 × 5 + 该路线岔路口数 × 10。','Speed bonus = complexity points × 60 ÷ (60 + active seconds), rounded down. Faster completion earns more.':'速度奖励 = 复杂度分 × 60 ÷（60 + 实际游戏秒数），向下取整。完成越快，奖励越高。','Pauses do not count as play time. Restarts keep time already spent. Each maze can score only once per day.':'暂停不计入游戏时间，重新开始会保留已用时间。每个迷宫每天只能计分一次。','Your daily total adds all four maze scores. Progress and daily history are saved on this browser/device.':'每日总分为四个迷宫得分之和。进度和每日记录保存在此浏览器／设备。','Previous daily scores':'往日得分','Your daily scores will appear here.':'你的每日得分将显示在这里。','4 daily mazes · complexity + speed · one total':'每日四个迷宫 · 难度与速度计分 · 累计总分','There’s no time limit. Pause whenever you like, or ask for a hint. Pauses stop the clock; restarts keep time already spent.':'没有时间限制，可以随时暂停或查看提示。暂停会停止计时，重新开始会保留已用时间。','Four mazes, one daily score.':'四个迷宫，一个每日总分。','Complete today’s four mazes in order. Complexity earns base points; faster active completion adds a speed bonus. Each maze counts once. A new set arrives tomorrow.':'按顺序完成今日四个迷宫。难度越高，基础分越高；实际完成越快，速度奖励越高。每个迷宫只能计分一次，明天会有全新挑战。','points this maze':'本关得分','All four mazes complete. Your daily total is ready!':'今日四个迷宫全部完成，每日总分已出炉！','One step closer to today’s total.':'离今日总分又近了一步。','View daily summary':'查看今日总结','Next daily maze →':'今日下一个迷宫 →','View daily scorecard':'查看今日计分卡','A new day! Four fresh mazes are ready.':'新的一天！四个全新迷宫已准备好。'
+});
 const original=new WeakMap();
 let language='en';
 try{language=localStorage.getItem('bunny-compass-language')==='zh'?'zh':'en';}catch{}
 export function translate(text,lang=language){
  if(lang==='en')return text;
  const trimmed=text.trim();let result=messages[trimmed],m;
+ if(!result&&(m=trimmed.match(/^DAILY MAZE (\d+) OF 4$/)))result=`今日第 ${m[1]} 个迷宫，共 4 个`;
+ if(!result&&(m=trimmed.match(/^(Easy|Medium|Hard) · (Square|Rectangle|Circle|Diamond|Clover)$/)))result=`${messages[m[1]]} · ${messages[m[2]]}`;
+ if(!result&&(m=trimmed.match(/^(\d+) points$/)))result=`${m[1]} 分`;
+ if(!result&&(m=trimmed.match(/^(\d+) of 4 mazes complete$/)))result=`已完成 ${m[1]} 个迷宫，共 4 个`;
+ if(!result&&(m=trimmed.match(/^Continue to maze (\d+)$/)))result=`继续第 ${m[1]} 个迷宫`;
+ if(!result&&(m=trimmed.match(/^Complexity points: (\d+)$/)))result=`复杂度分：${m[1]}`;
+ if(!result&&(m=trimmed.match(/^Speed bonus: up to (\d+)$/)))result=`速度奖励：最高 ${m[1]} 分`;
+ if(!result&&(m=trimmed.match(/^Complexity: (\d+) · Speed bonus: (\d+)$/)))result=`复杂度分：${m[1]} · 速度奖励：${m[2]}`;
+ if(!result&&(m=trimmed.match(/^(\d{4}-\d{2}-\d{2}) · (\d+) points · ([0-4])\/4$/)))result=`${m[1]} · ${m[2]} 分 · ${m[3]}/4`;
+ if(!result&&(m=trimmed.match(/^Daily maze (\d+) complete\. (\d+) points\. Daily total (\d+)\.$/)))result=`今日第 ${m[1]} 个迷宫完成，获得 ${m[2]} 分，今日总分 ${m[3]}。`;
  if(!result&&(m=trimmed.match(/^THE (MEADOW|WOODLAND|MOONLIGHT) · MAZE (\d+)$/)))result=`${{MEADOW:'草地',WOODLAND:'森林',MOONLIGHT:'月夜'}[m[1]]} · 迷宫 ${m[2]}`;
  if(!result&&(m=trimmed.match(/^([▦▤◯◇✣]) (Square|Rectangle|Circle|Diamond|Clover)$/)))result=`${m[1]} ${messages[m[2]]}`;
  if(!result&&(m=trimmed.match(/^Maze (\d+)(, completed)?$/)))result=`迷宫 ${m[1]}${m[2]?'，已完成':''}`;
