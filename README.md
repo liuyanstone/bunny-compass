@@ -5,7 +5,7 @@ Play at https://liuyanstone.github.io/bunny-compass/ — no account or sign-in r
 
 Select English / 中文 in the header. Your language preference and maze completion are saved in your browser.
 
-Use arrow keys, WASD, or the onscreen controls to guide Clover to the carrot exit. The maze, bunny, and controls rotate together by 90 degrees at random intervals. Up follows the coral compass arrow.
+Use arrow keys, WASD, or the onscreen controls to guide Clover to the carrot exit. The maze and bunny rotate by 90 degrees at random intervals. The onscreen arrow pad stays fixed in a normal keyboard layout. Keys retain their original maze directions: Up follows the rotating coral compass arrow. For example, when that arrow points right, pressing Up moves Clover right on the screen.
 
 Three difficulties, each with 40 seeded mazes across five shapes. Every maze is generated as a spanning tree and validated for reachability.
 
