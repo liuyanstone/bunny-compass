@@ -1,8 +1,8 @@
-import {initialAngle,safeAngle,nextAngle} from './rotation.mjs?v=extra-v3';
+import {initialAngle,safeAngle,nextAngle} from './rotation.mjs?v=extra-v4';
 import {createGameAudio} from './audio.mjs';
-import './i18n.mjs?v=extra-v3';
-import {LEVELS,solveMaze,nextCell,DIRECTIONS} from './maze.mjs?v=extra-v3';
-import {DAILY_COUNT,STORAGE_KEY,localDay,dailyPlan,dayData,dailyTotal,finishDailyMaze,saveCheckpoint,restoreState,bestByLevel,extraMaze,beginExtraMaze,finishExtraMaze,mazeComplexity} from './daily.mjs?v=extra-v3';
+import './i18n.mjs?v=extra-v4';
+import {LEVELS,solveMaze,nextCell,DIRECTIONS} from './maze.mjs?v=extra-v4';
+import {DAILY_COUNT,STORAGE_KEY,localDay,dailyPlan,dayData,dailyTotal,finishDailyMaze,saveCheckpoint,restoreState,bestByLevel,extraMaze,beginExtraMaze,finishExtraMaze,mazeComplexity} from './daily.mjs?v=extra-v4';
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
 const sound=createGameAudio('bunny-compass-sound');
 function renderSound(){ $('#soundBtn').setAttribute('aria-pressed',String(sound.enabled)); $('#soundLabel').textContent=sound.enabled?'Sound on':'Sound off'; }

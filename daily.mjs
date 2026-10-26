@@ -1,5 +1,5 @@
-import {initialAngle,safeAngle} from './rotation.mjs?v=extra-v3';
-import {generateMaze} from './maze.mjs?v=extra-v3';
+import {initialAngle,safeAngle} from './rotation.mjs?v=extra-v4';
+import {generateMaze} from './maze.mjs?v=extra-v4';
 export const DAILY_COUNT=3;
 export const STORAGE_KEY='bunny-compass-daily-v1';
 export function localDay(date=new Date()){return`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;}
